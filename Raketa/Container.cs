@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace newRaketa
+namespace Raketa
 {
     public class Container : IContainerDi
     {

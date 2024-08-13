@@ -1,4 +1,4 @@
-﻿namespace newRaketa
+﻿namespace Raketa
 {
     public interface IContainerDi
     {

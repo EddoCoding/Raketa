@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace newRaketa
+namespace Raketa
 {
     public class ServiceView(IContainerDi containerDi) : IServiceView
     {

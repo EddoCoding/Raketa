@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace newRaketa
+namespace Raketa
 {
     public interface IServiceView
     {
