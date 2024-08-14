@@ -10,7 +10,7 @@ namespace Raketa
         void OnPropertyChanged([CallerMemberName] string PropertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
 
-        bool SetValue<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        public bool SetValue<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
         {
             if (Equals(field, value)) return false;
             field = value;
