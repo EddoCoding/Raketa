@@ -52,17 +52,19 @@ namespace Raketa
                 var userControl = _containerDi.Resolve((Type)view.Item2, identifier, args) as UserControl;
                 var viewModel = _containerDi.Resolve(typeof(ViewModel), identifier, args);
                 userControl.DataContext = viewModel;
-                if (!registryView.ContainsKey(viewModel.GetType()))
-                {
-                    registryView.Add(viewModel.GetType(), (IView)userControl);
-                    return userControl;
-                }
-                else
-                {
-                    MessageBox.Show("Вкладка уже открыта!");
-                    return null;
-                }
-                
+
+                return userControl;
+
+                //if (!registryView.ContainsKey(viewModel.GetType()))
+                //{
+                //    registryView.Add(viewModel.GetType(), (IView)userControl);
+                //    return userControl;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Вкладка уже открыта!");
+                //    return null;
+                //}
             }
             else throw new Exception($"Модель представления: -- {typeof(ViewModel).Name} -- не зарегистрирована!");
         }
