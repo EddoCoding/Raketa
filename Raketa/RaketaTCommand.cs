@@ -23,7 +23,7 @@ namespace Raketa
 
         public void Execute(object? parameter) => _execute?.Invoke((T)parameter);
 
-        public static RaketaTCommand<T> Launch(Action<T> execute, Func<T, bool> canExecute = null)
-        => new RaketaTCommand<T>(execute, canExecute);
+        public static RaketaTCommand<T> Launch(Action<T> execute, Func<T, bool> canExecute = null) => 
+            new RaketaTCommand<T>(execute, canExecute);
     }
 }

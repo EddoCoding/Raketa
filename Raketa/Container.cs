@@ -41,6 +41,12 @@ namespace Raketa
             containerDependency.Add(impl, typeof(Interface));
             registryDependency.Add(identifier, impl);
         }
+        public void RegisterSingleton<Implementation, Interface>()
+        {
+            checkInterface<Implementation, Interface>();
+            var impl = Resolve<Implementation>();
+            containerDependency.Add(impl, typeof(Interface));
+        }
 
         public Interface GetDependency<Interface>()
         {
@@ -68,6 +74,15 @@ namespace Raketa
             if (ctorParameters.Length == 0) return Activator.CreateInstance(ctor);
             else return Activator.CreateInstance(ctor, GetDependencies(ctorParameters, identifiers, args));
         }
+        public object Resolve<Type>(string[] identifiers = null, params object[] args)
+        {
+            var constructor = typeof(Type).GetConstructors().FirstOrDefault();
+            var ctorParameters = constructor.GetParameters();
+            if (ctorParameters.Length == 0) return Activator.CreateInstance(typeof(Type));
+            else return Activator.CreateInstance(typeof(Type), GetDependencies(ctorParameters, identifiers, args));
+        }
+
+
         object[] GetDependencies(ParameterInfo[] ctorParameters, string[] identifiers = null, params object[] args)
         {
             List<object> dependencies = new();
