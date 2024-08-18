@@ -54,17 +54,6 @@ namespace Raketa
                 userControl.DataContext = viewModel;
 
                 return userControl;
-
-                //if (!registryView.ContainsKey(viewModel.GetType()))
-                //{
-                //    registryView.Add(viewModel.GetType(), (IView)userControl);
-                //    return userControl;
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Вкладка уже открыта!");
-                //    return null;
-                //}
             }
             else throw new Exception($"Модель представления: -- {typeof(ViewModel).Name} -- не зарегистрирована!");
         }
