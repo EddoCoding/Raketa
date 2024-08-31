@@ -11,13 +11,13 @@ namespace Raketa
         Window window;
 
         public void RegisterTypeView<ViewModel, TWindow, TUserControl>()
+            where ViewModel : RaketaViewModel
             where TWindow : IView
-            where TUserControl : IView
         {
             checkKey<ViewModel>();
             containerView.Add(typeof(ViewModel), (typeof(TWindow), typeof(TUserControl)));
         }
-        public void RegisterTypeView<ViewModel, View>() where View : IView
+        public void RegisterTypeView<ViewModel, View>() where ViewModel : RaketaViewModel
         {
             checkKey<ViewModel>();
             
