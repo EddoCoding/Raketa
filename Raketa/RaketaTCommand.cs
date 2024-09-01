@@ -4,8 +4,9 @@ namespace Raketa
 {
     public class RaketaTCommand<T> : ICommand
     {
-        readonly Action<T> _execute;
-        readonly Func<T, bool> _canExecute;
+        readonly Action<T>? _executeSync;
+        readonly Func<T, Task>? _executeAsync;
+        readonly Func<T, bool>? _canExecute;
 
         public event EventHandler? CanExecuteChanged
         {
@@ -15,15 +16,37 @@ namespace Raketa
 
         public RaketaTCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _executeSync = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public RaketaTCommand(Func<T, Task> execute, Func<T, bool> canExecute = null)
+        {
+            _executeAsync = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
         public bool CanExecute(object? parameter) => _canExecute?.Invoke((T)parameter) ?? true;
 
-        public void Execute(object? parameter) => _execute?.Invoke((T)parameter);
+        public async void Execute(object? parameter)
+        {
+            if (CanExecute(parameter))
+            {
+                if (_executeAsync != null)
+                {
+                    await _executeAsync((T)parameter);
+                }
+                else
+                {
+                    _executeSync?.Invoke((T)parameter);
+                }
+            }
+        }
 
-        public static RaketaTCommand<T> Launch(Action<T> execute, Func<T, bool> canExecute = null) => 
+        public static RaketaTCommand<T> Launch(Action<T> execute, Func<T, bool> canExecute = null) =>
+            new RaketaTCommand<T>(execute, canExecute);
+
+        public static RaketaTCommand<T> Launch(Func<T, Task> execute, Func<T, bool> canExecute = null) =>
             new RaketaTCommand<T>(execute, canExecute);
     }
 }
