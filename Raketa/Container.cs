@@ -82,7 +82,6 @@ namespace Raketa
             else return Activator.CreateInstance(typeof(Type), GetDependencies(ctorParameters, identifiers, args));
         }
 
-
         object[] GetDependencies(ParameterInfo[] ctorParameters, string[] identifiers = null, params object[] args)
         {
             List<object> dependencies = new();
@@ -140,7 +139,7 @@ namespace Raketa
                         }
                         else
                         {
-                            if (arg.GetType() == type)
+                            if (arg.GetType() == type || type.IsAssignableFrom(arg.GetType()))
                             {
                                 dependencies.Add(arg);
                                 break;
