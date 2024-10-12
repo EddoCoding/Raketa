@@ -139,7 +139,7 @@ namespace Raketa
                         }
                         else
                         {
-                            if (arg.GetType() == type || type.IsAssignableFrom(arg.GetType()))
+                            if (arg == null || arg.GetType() == type || type.IsAssignableFrom(arg.GetType()))
                             {
                                 dependencies.Add(arg);
                                 break;
